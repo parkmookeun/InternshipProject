@@ -82,7 +82,7 @@ public class UserService {
 
         boolean isAdmin = jwtTokenProvider.getAuthorities(token).stream()
                 .map(GrantedAuthority::getAuthority)
-                .anyMatch(role -> role.equals("ADMIN"));
+                .anyMatch(role -> role.equalsIgnoreCase("ADMIN")); // 대소문자 무시
 
         if(!isAdmin){
             throw new AuthorizationException();
