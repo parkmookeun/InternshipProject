@@ -76,6 +76,12 @@ public class UserService {
 
     public UpdateRoleResponseDto updateRole(Long userId, String token) {
 
+        // 로그 추가
+        List<String> authorities = jwtTokenProvider.getAuthorities(token).stream()
+                .map(GrantedAuthority::getAuthority)
+                .toList();
+        System.out.println("Token authorities: " + authorities);
+
         if(!jwtTokenProvider.validateToken(token)){
             throw new InvalidTokenException();
         }
